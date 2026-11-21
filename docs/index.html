@@ -71,12 +71,34 @@
             <a class="text-link" href="https://github.com/lbonvarl/gloomberb-finary-downloads/releases/download/v1.0.6/gloomberb-finary-v1.0.6.zip">Télécharger le ZIP</a>
             <details><summary>Installation manuelle avec le ZIP</summary><p>Décompressez le dossier gloomberb-finary dans le dossier plugins de Gloom, puis relancez l’application. La commande gloom plugins indique l’emplacement utilisé sur votre système.</p></details>
           </div></li>
-          <li><div><h3>Connecter Finary</h3><p>Une fois votre session finary_uapi ouverte, ajoutez un profil Finary dans le panneau <strong>Brokers</strong> (<kbd>BR</kbd>), renseignez les chemins de Python et du dossier de session, puis lancez <strong>Sync</strong>.</p>
-            <details><summary>Créer la session finary_uapi</summary><p>Sur macOS ou Linux, créez un dossier de session et un environnement Python privé.</p><pre class="snippet"><code>install -d -m 700 &quot;$HOME/.config/finary_uapi&quot;
-cd &quot;$HOME/.config/finary_uapi&quot;
+          <li id="finary-uapi"><div>
+            <h3>Installer finary_uapi et se connecter à Finary</h3>
+            <p>Dans ce terminal, créez un dossier de session local et installez le paquet <a class="text-link" href="https://pypi.org/project/finary-uapi/">finary_uapi sur PyPI</a>. Si vous avez déjà une session active, passez à l’étape suivante avec le Python et le dossier de cette session.</p>
+            <p><strong>macOS ou Linux</strong></p>
+            <pre class="snippet"><code>install -d -m 700 "$HOME/.config/finary_uapi"
+cd "$HOME/.config/finary_uapi"
 umask 077
 python3 -m venv .venv
-.venv/bin/python -m pip install finary_uapi</code></pre><p>Suivez ensuite le guide finary_uapi pour la connexion depuis ce dossier. Dans Gloom, indiquez les chemins absolus vers .venv/bin/python et le dossier de session. Sous Windows, utilisez .venv\Scripts\python.exe.</p><p><a class="text-link" href="https://github.com/lasconic/finary_uapi#quick-start">Guide de connexion finary_uapi</a></p></details>
+.venv/bin/python -m pip install finary_uapi</code></pre>
+            <p>Dans ce dossier, créez <code>credentials.json</code> à partir du <a class="text-link" href="https://github.com/lasconic/finary_uapi/blob/main/credentials.json.tpl">modèle de configuration</a>. Renseignez votre e-mail et votre mot de passe Finary dans ce fichier local, puis lancez la connexion depuis le même dossier.</p>
+            <pre class="snippet"><code>.venv/bin/python -m finary_uapi signin</code></pre>
+            <p>Consultez le <a class="text-link" href="https://github.com/lasconic/finary_uapi#quick-start">guide de démarrage de finary_uapi</a> pour les détails de connexion. Gardez le fichier d’identifiants et les fichiers de session dans votre dossier privé.</p>
+            <details>
+              <summary>Commandes pour Windows (PowerShell)</summary>
+              <pre class="snippet"><code>$session = Join-Path $env:LOCALAPPDATA "finary_uapi"
+New-Item -ItemType Directory -Force -Path $session
+Set-Location $session
+py -3 -m venv .venv
+.\.venv\Scripts\python.exe -m pip install finary_uapi</code></pre>
+              <p>Créez <code>credentials.json</code> dans ce dossier comme indiqué ci-dessus, puis lancez la connexion.</p>
+              <pre class="snippet"><code>.\.venv\Scripts\python.exe -m finary_uapi signin</code></pre>
+            </details>
+          </div></li>
+          <li><div>
+            <h3>Configurer le profil Finary et synchroniser</h3>
+            <p>Dans Gloom, ajoutez un profil Finary depuis le panneau <strong>Brokers</strong> (<kbd>BR</kbd>).</p>
+            <p>Dans <strong>Python executable</strong>, indiquez le chemin absolu du Python utilisé pour la connexion (<code>.venv/bin/python</code> sur macOS ou Linux, <code>.venv\Scripts\python.exe</code> sous Windows). Dans <strong>finary_uapi data directory</strong>, indiquez le chemin absolu du dossier depuis lequel vous avez lancé <code>signin</code>.</p>
+            <p>Enregistrez le profil, puis lancez <strong>Sync</strong>.</p>
           </div></li>
         </ol>
       </div>

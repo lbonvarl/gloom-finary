@@ -71,12 +71,34 @@
             <a class="text-link" href="https://github.com/lbonvarl/gloomberb-finary-downloads/releases/download/v1.0.6/gloomberb-finary-v1.0.6.zip">Download the ZIP</a>
             <details><summary>Install the ZIP manually</summary><p>Extract the gloomberb-finary folder into your Gloom plugins directory, then restart the app. The gloom plugins command shows the location on your system.</p></details>
           </div></li>
-          <li><div><h3>Connect Finary</h3><p>Once your finary_uapi session is active, add a Finary profile in <strong>Brokers</strong> (<kbd>BR</kbd>). Enter the Python and session paths, then select <strong>Sync</strong>.</p>
-            <details><summary>Set up a finary_uapi session</summary><p>On macOS or Linux, create a private session folder and Python environment.</p><pre class="snippet"><code>install -d -m 700 &quot;$HOME/.config/finary_uapi&quot;
-cd &quot;$HOME/.config/finary_uapi&quot;
+          <li id="finary-uapi"><div>
+            <h3>Install finary_uapi and sign in to Finary</h3>
+            <p>In your terminal, create a local session folder and install <a class="text-link" href="https://pypi.org/project/finary-uapi/">finary_uapi from PyPI</a>. If you already have an active session, go to the next step with the Python executable and folder you used for that session.</p>
+            <p><strong>macOS or Linux</strong></p>
+            <pre class="snippet"><code>install -d -m 700 "$HOME/.config/finary_uapi"
+cd "$HOME/.config/finary_uapi"
 umask 077
 python3 -m venv .venv
-.venv/bin/python -m pip install finary_uapi</code></pre><p>Follow the finary_uapi sign-in guide from that folder. In Gloom, enter the absolute paths to .venv/bin/python and your session folder. On Windows, use .venv\Scripts\python.exe.</p><p><a class="text-link" href="https://github.com/lasconic/finary_uapi#quick-start">finary_uapi sign-in guide</a></p></details>
+.venv/bin/python -m pip install finary_uapi</code></pre>
+            <p>In that folder, create <code>credentials.json</code> from the <a class="text-link" href="https://github.com/lasconic/finary_uapi/blob/main/credentials.json.tpl">configuration template</a>. Add your Finary email and password to that local file, then sign in from the same folder.</p>
+            <pre class="snippet"><code>.venv/bin/python -m finary_uapi signin</code></pre>
+            <p>See the <a class="text-link" href="https://github.com/lasconic/finary_uapi#quick-start">finary_uapi quick start</a> for sign-in details. Keep the credentials file and session files in your private folder.</p>
+            <details>
+              <summary>Commands for Windows (PowerShell)</summary>
+              <pre class="snippet"><code>$session = Join-Path $env:LOCALAPPDATA "finary_uapi"
+New-Item -ItemType Directory -Force -Path $session
+Set-Location $session
+py -3 -m venv .venv
+.\.venv\Scripts\python.exe -m pip install finary_uapi</code></pre>
+              <p>Create <code>credentials.json</code> in that folder as described above, then sign in.</p>
+              <pre class="snippet"><code>.\.venv\Scripts\python.exe -m finary_uapi signin</code></pre>
+            </details>
+          </div></li>
+          <li><div>
+            <h3>Set up the Finary profile and sync</h3>
+            <p>In Gloom, add a Finary profile from the <strong>Brokers</strong> panel (<kbd>BR</kbd>).</p>
+            <p>For <strong>Python executable</strong>, enter the absolute path to the Python executable you used to sign in (<code>.venv/bin/python</code> on macOS or Linux, <code>.venv\Scripts\python.exe</code> on Windows). For <strong>finary_uapi data directory</strong>, enter the absolute path to the folder where you ran <code>signin</code>.</p>
+            <p>Save the profile, then select <strong>Sync</strong>.</p>
           </div></li>
         </ol>
       </div>
