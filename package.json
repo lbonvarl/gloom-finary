@@ -1,0 +1,7 @@
+{
+  "name": "gloomberb-finary",
+  "version": "1.0.6",
+  "type": "module",
+  "main": "index.js",
+  "license": "MIT"
+}

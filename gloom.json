@@ -1,0 +1,23 @@
+{
+  "id": "gloomberb-finary",
+  "name": "Finary",
+  "tagline": "Read-only Finary portfolio import through finary_uapi",
+  "description": "Import Finary investment, crypto, and manual-asset positions through a locally authenticated finary_uapi installation. Authentication stays with finary_uapi; the plugin only reads and never writes back to Finary.",
+  "categories": [
+    "broker"
+  ],
+  "targets": [
+    "cli",
+    "tui",
+    "desktop"
+  ],
+  "hosts": [
+    "api.finary.com",
+    "clerk.finary.com",
+    "query1.finance.yahoo.com"
+  ],
+  "contributes": {
+    "broker": true
+  },
+  "minGloom": "0.12.0"
+}
